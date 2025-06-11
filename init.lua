@@ -1097,3 +1097,19 @@ vim.cmd [[
 ]]
 --custom keymaps
 vim.keymap.set('n', '<leader>e', '<cmd>Explore<CR>')
+
+vim.cmd [[
+  autocmd FileType netrw call NetrwChangeKeybinding()
+
+  function! NetrwChangeKeybinding()
+      nnoremap <buffer> a :call NetrwCreateEmptyFile()<CR>
+      unmap <buffer> %
+  endfunction
+
+  function! NetrwCreateEmptyFile()
+      let filename = input("Enter filename: ")
+      if !empty(filename)
+          execute "e " . shellescape(filename)
+      endif
+  endfunction
+]]
